@@ -31,24 +31,6 @@ class Auth {
         HttpException.invalidDataException('Please provide valid password')
       );
     }
-    if (
-      !Array.isArray(userData.type) ||
-      !userData.type.every(validator.isString)
-    ) {
-      throw new HttpException(
-        HttpException.invalidDataException('Please provide valid type')
-      );
-    }
-    if (
-      !validator.isString(userData.measurementType) ||
-      !['KMs', 'miles'].includes(userData.measurementType)
-    ) {
-      throw new HttpException(
-        HttpException.invalidDataException(
-          'Please provide valid measurement type'
-        )
-      );
-    }
     if (!validator.isString(userData.profileImage)) {
       throw new HttpException(
         HttpException.invalidDataException('Please provide valid profileImage')
@@ -165,7 +147,6 @@ class Auth {
       {
         ...body,
         profileImage: file.location,
-        type: body.type.split(',').map((item: string) => item.trim()),
       },
       validator,
       HttpException
@@ -176,7 +157,6 @@ class Auth {
     const user = await userModal.createUser({
       ...body,
       profileImage: file.location,
-      type: body.type.split(',').map((item: string) => item.trim()),
       emailConfirmationToken,
     });
     // Setting the wait time does not works here, we need to set the await here for sending the email here
@@ -365,7 +345,6 @@ class Auth {
     await this.emailValidation(userId, body, HttpException);
     const userDetails = {
       ...body,
-      type: body.type.split(',').map((item: string) => item.trim()),
       profileImage: profileImage,
     };
     this.validateUserDetails(userDetails, validator, HttpException);

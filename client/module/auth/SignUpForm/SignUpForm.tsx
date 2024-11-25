@@ -23,8 +23,6 @@ const SignUpForm: React.FC = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    type: ['coach'],
-    measurementType: 'KMs',
   };
 
   const form = useForm({
