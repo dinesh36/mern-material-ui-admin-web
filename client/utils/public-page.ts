@@ -5,7 +5,7 @@ export const publicPages = [
   '/reset-password',
 ];
 
-export const dualAccessPages = ['/shared-plan', '/confirm-email'];
+export const dualAccessPages = ['/confirm-email'];
 
 export const isPublicPage = (path: string) => {
   return !!publicPages.find((publicPath) => path.startsWith(publicPath));

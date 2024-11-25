@@ -117,7 +117,7 @@ export const generateEmailTemplate = (
         </div>
     </div>
     <div class="email-footer">
-        <p>© 2024 My Plan 26. All Rights Reserved</p>
+        <p>© 2024 MERN App. All Rights Reserved</p>
     </div>
 </div>
 </body>

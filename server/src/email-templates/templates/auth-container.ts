@@ -27,7 +27,7 @@ export const getAuthContainerTemplate = ({
                                     <img
                                             style="max-width: 200px"
                                             src="${publicAssetsURL}/public/email-template-logo.png"
-                                         alt="MyPlan26">
+                                         alt="MERNApp">
                                 </td>
                             </tr>
                         </table>
@@ -44,7 +44,7 @@ export const getAuthContainerTemplate = ({
                 <!-- Content footer -->
                 <tr>
                     <td style="padding: 50px;background-color: #ffffff;font-size: 14px; font-weight: 500;color: black; border: 1px solid #f7f7f7" align="center">
-                        © 2024 My Plan 26. All Rights Reserved
+                        © 2024 MERN App. All Rights Reserved
                     </td>
                 </tr>
                 <!-- Content footer -->

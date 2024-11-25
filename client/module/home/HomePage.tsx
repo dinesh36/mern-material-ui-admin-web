@@ -3,7 +3,7 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-import { planContainer, planContentTitle } from './HomePage.style';
+import { homeContainer, homeContentTitle } from './HomePage.style';
 
 const HomePage: React.FC = () => {
 
@@ -15,14 +15,14 @@ const HomePage: React.FC = () => {
       mt={3.75}
       mb={3.75}
     >
-      <Typography variant="h4" sx={planContentTitle}>
+      <Typography variant="h4" sx={homeContentTitle}>
         This is a user home page
       </Typography>
     </Box>
   );
 
   return (
-    <Box sx={planContainer}>
+    <Box sx={homeContainer}>
       {renderHeader()}
     </Box>
   );

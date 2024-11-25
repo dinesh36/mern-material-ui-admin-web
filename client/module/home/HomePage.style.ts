@@ -1,9 +1,9 @@
 import { centerContainer } from '../layout/CommonStyles/CenterContainer.style';
 
-export const planContainer = {
+export const homeContainer = {
   ...centerContainer,
 };
 
-export const planContentTitle = {
+export const homeContentTitle = {
   fontWeight: 700,
 };

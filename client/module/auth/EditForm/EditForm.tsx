@@ -20,9 +20,7 @@ const EditForm: React.FC = () => {
   const defaultValues = {
     name: '',
     email: '',
-    type: [],
     profileImage: '',
-    measurementType: 'KMs',
   };
 
   const form = useForm({
@@ -52,9 +50,7 @@ const EditForm: React.FC = () => {
       reset({
         name: fetchedUser.name || '',
         email: fetchedUser.email || '',
-        type: fetchedUser.type || [],
         profileImage: fetchedUser.profileImage || '',
-        measurementType: fetchedUser.measurementType || 'KMs',
       });
     } catch {
     } finally {

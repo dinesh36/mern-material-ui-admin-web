@@ -7,8 +7,6 @@ const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  type: { type: [String], default: [] },
-  measurementType: String,
   resetPasswordToken: String,
   resetPasswordExpires: Number,
   profileImage: String,
@@ -47,13 +45,11 @@ class UserModal {
     userId,
     name,
     email,
-    type,
     profileImage,
-    measurementType,
   }: UpdateUser) {
     return userMongoModal.updateOne(
       { _id: userId },
-      { name, email, type, profileImage, measurementType }
+      { name, email, profileImage }
     );
   }
 

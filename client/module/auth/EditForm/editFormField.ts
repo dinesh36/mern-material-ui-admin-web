@@ -34,32 +34,4 @@ export const editFormFields = [
       },
     },
   },
-  {
-    name: 'type',
-    label: 'Select Type',
-    renderer: CheckboxGroup,
-    rules: {
-      required: 'Please select a type',
-    },
-    fieldProps: {
-      options: [
-        { label: 'Coach', value: 'coach' },
-        { label: 'Athlete', value: 'athlete' },
-      ],
-    },
-  },
-  {
-    name: 'measurementType',
-    label: 'Select Measurement Type',
-    renderer: SelectTypeRadio,
-    rules: {
-      required: 'Please select a measurementType',
-    },
-    fieldProps: {
-      options: [
-        { label: 'KMs', value: 'KMs' },
-        { label: 'Miles', value: 'miles' },
-      ],
-    },
-  },
 ];
