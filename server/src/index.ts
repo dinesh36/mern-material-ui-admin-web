@@ -16,3 +16,14 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+
+// import serverlessExpress from '@codegenie/serverless-express';
+// import expressServer from './lib/express';
+// import initDb from './utils/init-db';
+//
+// const app = expressServer.initServer();
+//
+// initDb();
+// exports.handler = serverlessExpress({ app });
