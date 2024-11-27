@@ -2,10 +2,8 @@ import {
   TextField,
   Password,
   SelectProfilePhoto,
-  SelectTypeRadio,
 } from '../../shared/form';
 import { passwordValidationRules } from '../passwordValidationRules';
-import { CheckboxGroup } from '../../shared/form/fields/CheckboxGroup/CheckboxGroup';
 
 export const signUpFormFields = [
   {

@@ -1,9 +1,7 @@
 import {
   TextField,
   SelectProfilePhoto,
-  SelectTypeRadio,
 } from '../../shared/form';
-import { CheckboxGroup } from '../../shared/form/fields/CheckboxGroup/CheckboxGroup';
 
 export const editFormFields = [
   {
