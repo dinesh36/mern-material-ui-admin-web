@@ -1,18 +1,8 @@
-import express from 'express';
-import mongoose from 'mongoose';
+import serverlessExpress from '@codegenie/serverless-express';
+import expressServer from './lib/express';
+import initDb from './utils/init-db';
 
-const app = express();
-const PORT = process.env.PORT || 5001;
+const app = expressServer.initServer();
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/mern-example')
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
-
-app.get('/', (req, res) => {
-    res.send('Hello from Express and MongoDB');
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+initDb();
+exports.handler = serverlessExpress({ app });
