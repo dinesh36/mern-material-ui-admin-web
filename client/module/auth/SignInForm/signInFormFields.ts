@@ -1,4 +1,5 @@
-import { TextField, Password } from '../../shared/form';
+import { TextField } from '@mern-material-ui-admin-web/common';
+import { Password } from '../../shared/form';
 
 export const signInFormFields = [
   {
