@@ -1,15 +1,7 @@
-import { Password } from '../../shared/form';
-import { passwordValidationRules } from '../passwordValidationRules';
+import { Password } from '../../../client/module/shared/form';
+import { passwordValidationRules } from '../../../client/module/auth/passwordValidationRules';
 
-export const changePasswordFormFields = [
-  {
-    name: 'oldPassword',
-    label: 'Old Password',
-    renderer: Password,
-    rules: {
-      required: 'This field is required',
-    },
-  },
+export const resetPasswordFormFields = [
   {
     name: 'newPassword',
     label: 'New Password',
