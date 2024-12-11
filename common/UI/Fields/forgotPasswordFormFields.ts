@@ -1,4 +1,4 @@
-import { TextField } from '../../shared/form';
+import { TextField } from '../../../client/module/shared/form';
 
 export const forgotPasswordFormFields = [
   {

@@ -4,8 +4,8 @@ import {
   InputAdornment,
   TextField as PasswordField,
 } from '@mui/material';
-import VisibilityOnIcon from '../../../icons/VisibilityOn';
-import VisibilityOffIcon from '../../../icons/VisibilityOffIcon';
+import VisibilityOnIcon from '@mern-material-ui-admin-web/common/UI/icons/VisibilityOn';
+import VisibilityOffIcon from '@mern-material-ui-admin-web/common/UI/icons/VisibilityOffIcon';
 
 export const Password = ({
   placeholder,

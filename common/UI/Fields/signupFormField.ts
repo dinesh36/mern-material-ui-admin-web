@@ -2,10 +2,26 @@ import {
   TextField,
   Password,
   SelectProfilePhoto,
-} from '../../shared/form';
-import { passwordValidationRules } from '../passwordValidationRules';
+} from '../../../client/module/shared/form';
+import { passwordValidationRules } from '../../../client/module/auth/passwordValidationRules';
 
-export const signUpFormFields = [
+interface ValidationRule {
+  required?: string;
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+  validate?: (value: any, formValues: any) => boolean | string;
+}
+
+interface FormField {
+  name: string;
+  label?: string;
+  renderer: React.FC<any>
+  rules?: ValidationRule;
+}
+
+export const signUpFormFields: FormField[] = [
   {
     name: 'profileImage',
     renderer: SelectProfilePhoto,
