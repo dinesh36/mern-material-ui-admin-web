@@ -1,7 +1,5 @@
-import {
-  TextField,
-  SelectProfilePhoto,
-} from '../../shared/form';
+import { SelectProfilePhoto } from '../../shared/form';
+import { TextField } from '@mern/ui-shared';
 
 export const editFormFields = [
   {

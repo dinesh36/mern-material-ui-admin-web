@@ -1,8 +1,5 @@
-import {
-  TextField,
-  Password,
-  SelectProfilePhoto,
-} from '../../shared/form';
+import { Password, TextField } from '@mern/ui-shared';
+import { SelectProfilePhoto } from '../../shared/form';
 import { passwordValidationRules } from '../passwordValidationRules';
 
 export const signUpFormFields = [

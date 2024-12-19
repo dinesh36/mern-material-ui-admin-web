@@ -1,4 +1,4 @@
-import { Password } from '../../shared/form';
+import { Password } from '@mern/ui-shared';
 import { passwordValidationRules } from '../passwordValidationRules';
 
 export const resetPasswordFormFields = [
