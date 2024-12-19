@@ -4,6 +4,7 @@ import {
   Typography,
 } from '@mui/material';
 import { homeContainer, homeContentTitle } from './HomePage.style';
+import { Button } from '@mern/ui-shared';
 
 const HomePage: React.FC = () => {
 
@@ -24,6 +25,7 @@ const HomePage: React.FC = () => {
   return (
     <Box sx={homeContainer}>
       {renderHeader()}
+      <Button />
     </Box>
   );
 };
