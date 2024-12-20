@@ -1,4 +1,4 @@
-import { TextField } from '../../shared/form';
+import { TextField } from '../UI/TextField';
 
 export const forgotPasswordFormFields = [
   {

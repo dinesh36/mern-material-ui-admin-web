@@ -8,7 +8,7 @@ import {
   forgotPasswordMessage,
   forgotPasswordSubmitButton,
 } from './ForgotPasswordForm.style';
-import { forgotPasswordFormFields } from './forgotPasswordFormFields';
+import { forgotPasswordFormFields } from '@mern/ui-shared';
 import { sendResetPasswordEmail } from '../../services/auth-services';
 import { useRouter } from 'next/router';
 

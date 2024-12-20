@@ -11,7 +11,7 @@ import {
   signInForgotPasswordButton,
 } from './SignInForm.style';
 import { AppForm, FieldGroup } from '../../shared/form';
-import { signInFormFields } from './signInFormFields';
+import { signInFormFields } from '@mern/ui-shared';
 import { SignInBody } from '../../../models/auth.type';
 import FormCard from '../../shared/FormCard/FormCard';
 import { useRouter } from 'next/router';

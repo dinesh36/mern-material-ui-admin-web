@@ -1,7 +1,5 @@
-import {
-  TextField,
-  SelectProfilePhoto,
-} from '../../shared/form';
+import { SelectProfilePhoto } from '../../client/module/shared/form';
+import { TextField } from '../UI/TextField';
 
 export const editFormFields = [
   {

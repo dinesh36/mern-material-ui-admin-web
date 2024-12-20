@@ -3,7 +3,7 @@ import { Box, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { AppForm, FieldGroup } from '../../shared/form';
 import FormCard from '../../shared/FormCard/FormCard';
-import { resetPasswordFormFields } from './resetPasswordFormFields';
+import { resetPasswordFormFields } from '@mern/ui-shared';
 import {
   resetPasswordButton,
   resetPasswordSubmitButton,

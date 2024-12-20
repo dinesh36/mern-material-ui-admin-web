@@ -1,13 +1,9 @@
-import React  from 'react';
-import {
-  Box,
-  Typography,
-} from '@mui/material';
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 import { homeContainer, homeContentTitle } from './HomePage.style';
 import { Button } from '@mern/ui-shared';
 
 const HomePage: React.FC = () => {
-
   const renderHeader = () => (
     <Box
       display="flex"

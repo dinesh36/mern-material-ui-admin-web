@@ -7,9 +7,9 @@ import {
   menuStyles,
   ProfileMenuContainer,
 } from './ProfileMenu.style';
-import UserIcon from '../../icons/UserIcon';
-import KeyIcon from '../../icons/KeyIcon';
-import LogOutIcon from '../../icons/LogOutIcon';
+import { UserIcon } from '@mern/ui-shared';
+import { KeyIcon } from '@mern/ui-shared';
+import { LogOutIcon } from '@mern/ui-shared';
 import { useRouter } from 'next/router';
 import { logoutUser } from '../../redux/slices/auth-slice';
 import { RootState, useAppDispatch } from '../../redux/store';

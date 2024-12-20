@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormCard from '../../shared/FormCard/FormCard';
 import { AppForm, FieldGroup } from '../../shared/form';
-import { editFormFields } from './editFormField';
+import { editFormFields } from '@mern/ui-shared';
 import {
   editUser,
   fetchUser,

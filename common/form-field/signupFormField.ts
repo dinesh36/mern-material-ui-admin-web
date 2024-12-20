@@ -1,9 +1,7 @@
-import {
-  TextField,
-  Password,
-  SelectProfilePhoto,
-} from '../../shared/form';
-import { passwordValidationRules } from '../passwordValidationRules';
+import { TextField } from '../UI/TextField';
+import { Password } from '../UI/Password';
+import { SelectProfilePhoto } from '../../client/module/shared/form';
+import { passwordValidationRules } from '../../client/module/auth/passwordValidationRules';
 
 export const signUpFormFields = [
   {

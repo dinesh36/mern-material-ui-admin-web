@@ -1,4 +1,6 @@
-import { TextField, Password } from '../../shared/form';
+import { TextField } from '../UI/TextField';
+import { Password } from '../UI/Password';
+
 
 export const signInFormFields = [
   {

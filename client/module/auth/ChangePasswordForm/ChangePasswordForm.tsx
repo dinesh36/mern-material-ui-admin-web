@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppForm, FieldGroup } from '../../shared/form';
 import FormCard from '../../shared/FormCard/FormCard';
-import { changePasswordFormFields } from './changePasswordFormFields';
+import { changePasswordFormFields } from '@mern/ui-shared';
 import { changePassword } from '../../services/auth-services';
 import { useRouter } from 'next/router';
 
