@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuthentication } from "@/src/components/AuthenticationProvider";
-import {
-  Stack,
-  Typography,
-  MenuList,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Avatar,
-  Divider,
-  Box,
-  Button,
-  Popover,
-} from "@mui/material";
+import { Stack, Typography, Box, Avatar, Button, Popover } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useRouter } from "next/router";
 
 export const SidebarFooterAccountPopover: React.FC = () => {
-  const { session, signIn, signOut } = useAuthentication();
+  const { session, logIn, signOut } = useAuthentication();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -28,15 +18,15 @@ export const SidebarFooterAccountPopover: React.FC = () => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    if (!session) {
-      handleClose();
-    }
-  }, [session]);
+  const handleSignOut = async () => {
+    handleClose();
+    signOut({ redirect: true });
+    await router.push("/signin");
+  };
 
   const handleSignIn = () => {
     handleClose();
-    signIn();
+    logIn(); // Log in
   };
 
   return (
@@ -53,23 +43,25 @@ export const SidebarFooterAccountPopover: React.FC = () => {
           paddingLeft: "16px",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Avatar
-            sx={{ width: 32, height: 32 }}
-            alt={session?.user?.name || "Guest"}
-            src={session?.user?.image || ""}
-          >
-            {!session?.user?.image && session?.user?.name?.[0]}
-          </Avatar>
-          <Stack direction="column" sx={{ marginLeft: 2 }}>
-            <Typography variant="body2">
-              {session?.user?.name || "Guest"}
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              {session?.user?.email || "No account signed in"}
-            </Typography>
-          </Stack>
-        </Box>
+        {session && session.user ? (
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Avatar
+              sx={{ width: 32, height: 32 }}
+              alt={session.user.name}
+              src={session.user.image || ""}
+            />
+            <Stack direction="column" sx={{ marginLeft: 2 }}>
+              <Typography variant="body2">{session.user.name}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                {session.user.email}
+              </Typography>
+            </Stack>
+          </Box>
+        ) : (
+          <Button variant="contained" color="primary" onClick={handleSignIn}>
+            Sign In
+          </Button>
+        )}
         <Box sx={{ cursor: "pointer" }} onClick={handleClick}>
           <MoreVertIcon />
         </Box>
@@ -87,52 +79,26 @@ export const SidebarFooterAccountPopover: React.FC = () => {
           horizontal: "center",
         }}
       >
-        <MenuList>
-          <MenuItem>
-            <ListItemIcon>
-              {session?.user ? (
-                <Avatar
-                  sx={{ width: 32, height: 32 }}
-                  src={session.user.image}
-                  alt={session.user.name}
-                >
-                  {session.user.name[0]}
-                </Avatar>
-              ) : (
-                <Avatar sx={{ width: 32, height: 32 }}>?</Avatar>
-              )}
-            </ListItemIcon>
-            <ListItemText
-              primary={session?.user?.name || "Guest"}
-              secondary={session?.user?.email || "No account signed in"}
-              primaryTypographyProps={{ variant: "body2" }}
-              secondaryTypographyProps={{ variant: "caption" }}
-            />
-          </MenuItem>
-          <Divider />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              padding: 1,
-            }}
-          >
-            {session ? (
-              <Button variant="contained" color="primary" onClick={signOut}>
-                Sign Out
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSignIn}
-              >
-                Sign In
-              </Button>
-            )}
-          </Box>
-        </MenuList>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: 1,
+          }}
+        >
+          {session ? (
+            <Button variant="contained" color="primary" onClick={handleSignOut}>
+              Log Out
+            </Button>
+          ) : (
+            <Button variant="contained" color="primary" onClick={handleSignIn}>
+              Log In
+            </Button>
+          )}
+        </Box>
       </Popover>
     </Stack>
   );
 };
+
+export default SidebarFooterAccountPopover;

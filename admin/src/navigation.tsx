@@ -28,26 +28,26 @@ export const navigation: NavigationItem[] = [
     title: "Orders",
     icon: <ShoppingCartIcon />,
   },
-  {
-    segment: "reports",
-    title: "Reports",
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: "sales",
-        title: "Sales",
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: "traffic",
-        title: "Traffic",
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-  {
-    segment: "map",
-    title: "Map",
-    icon: <MapIcon />,
-  },
+  // {
+  //   segment: "reports",
+  //   title: "Reports",
+  //   icon: <BarChartIcon />,
+  //   children: [
+  //     {
+  //       segment: "sales",
+  //       title: "Sales",
+  //       icon: <DescriptionIcon />,
+  //     },
+  //     {
+  //       segment: "traffic",
+  //       title: "Traffic",
+  //       icon: <DescriptionIcon />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   segment: "map",
+  //   title: "Map",
+  //   icon: <MapIcon />,
+  // },
 ];

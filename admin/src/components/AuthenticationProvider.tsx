@@ -18,8 +18,8 @@ interface Session {
 
 interface AuthContextType {
   session: Session | null;
-  signIn: () => void;
-  signOut: () => void;
+  logIn: () => void;
+  signOut: (p: { redirect: boolean }) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,7 +29,7 @@ export const AuthenticationProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [session, setSession] = useState<Session | null>(null);
 
-  const signIn = () => {
+  const logIn = () => {
     setSession({
       user: {
         name: "Jay Rathod",
@@ -44,7 +44,7 @@ export const AuthenticationProvider: React.FC<{ children: ReactNode }> = ({
     setSession(null);
   };
 
-  const value = useMemo(() => ({ session, signIn, signOut }), [session]);
+  const value = useMemo(() => ({ session, logIn, signOut }), [session]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

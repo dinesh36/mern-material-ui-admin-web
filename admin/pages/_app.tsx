@@ -1,16 +1,14 @@
-import type { AppProps } from "next/app";
 import * as React from "react";
-import { AppProvider, Session } from "@toolpad/core/AppProvider";
+import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { extendTheme } from "@mui/material/styles";
-import { useRouter } from "next/router";
+import { SidebarFooterAccountPopover } from "@/src/components/SidebarFooterAccountPopover";
+import { AuthenticationProvider } from "@/src/components/AuthenticationProvider";
 import { navigation } from "@/src/navigation";
 import "@/styles/globals.css";
-import { SidebarFooterAccountPopover } from "@/src/components/SidebarFooterAccountPopover";
-import {
-  AuthenticationProvider,
-  useAuthentication,
-} from "@/src/components/AuthenticationProvider";
+// import { AppIcon } from "@/Module/icons/AppIcon";
 
 const demoTheme = extendTheme({
   colorSchemes: { light: true, dark: true },
@@ -28,62 +26,34 @@ const demoTheme = extendTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
-  const routerAdapter = React.useMemo(
-    () => ({
-      pathname: router.pathname,
-      searchParams: new URLSearchParams(),
-      navigate: (path: string | URL) => router.push(path.toString()),
-    }),
-    [router],
-  );
+  const isHomePage = router.pathname === "/signin";
 
   return (
     <AuthenticationProvider>
-      <AuthenticatedAppContent
-        routerAdapter={routerAdapter}
-        Component={Component}
-        pageProps={pageProps}
-      />
+      <AppProvider
+        navigation={navigation}
+        branding={{
+          // logo: <AppIcon />,
+          title: "MERN App",
+          homeUrl: "/dashboard",
+        }}
+        router={{
+          pathname: router.pathname,
+          searchParams: new URLSearchParams(),
+          navigate: (path: string | URL) => router.push(path.toString()),
+        }}
+        theme={demoTheme}
+      >
+        {isHomePage ? (
+          <Component {...pageProps} />
+        ) : (
+          <DashboardLayout
+            slots={{ sidebarFooter: SidebarFooterAccountPopover }}
+          >
+            <Component {...pageProps} />
+          </DashboardLayout>
+        )}
+      </AppProvider>
     </AuthenticationProvider>
-  );
-}
-
-interface AuthenticatedAppContentProps {
-  routerAdapter: {
-    pathname: string;
-    searchParams: URLSearchParams;
-    navigate: (path: string | URL) => void;
-  };
-  Component: React.ComponentType<any>;
-  pageProps: any;
-}
-
-const AuthenticatedAppContent: React.FC<AuthenticatedAppContentProps> = ({
-  routerAdapter,
-  Component,
-  pageProps,
-}) => {
-  const { session, signIn, signOut } = useAuthentication();
-
-  return (
-    <AppProvider
-      navigation={navigation}
-      branding={{
-        logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
-        title: "MERN Admin App",
-      }}
-      router={routerAdapter}
-      theme={demoTheme}
-      session={session as Session | null}
-      authentication={{
-        signIn,
-        signOut,
-      }}
-    >
-      <DashboardLayout slots={{ sidebarFooter: SidebarFooterAccountPopover }}>
-        <Component {...pageProps} />
-      </DashboardLayout>
-    </AppProvider>
   );
 }
