@@ -4,7 +4,7 @@ import {
   selectProfileEditIconStyle,
   selectProfilePhotoStyle,
 } from './SelectProfilePhoto.style';
-import EditProfileIcon from '../../../../icons/EditProfileIcon';
+import { EditProfileIcon } from '@mern/ui-shared';
 
 interface SelectProfilePhotoProps {
   value: string;

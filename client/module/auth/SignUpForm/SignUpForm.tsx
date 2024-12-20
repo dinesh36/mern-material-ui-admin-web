@@ -7,7 +7,7 @@ import {
   signInForgotPasswordButton,
   signInFormBoxButton,
 } from '../SignInForm/SignInForm.style';
-import { signUpFormFields } from './signupFormField';
+import { signUpFormFields } from '@mern/ui-shared';
 import {
   signUpService,
   storeUserAndAccessToken,

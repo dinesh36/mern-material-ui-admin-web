@@ -1,4 +1,6 @@
-import { Password, TextField } from '@mern/ui-shared';
+import { TextField } from '../UI/TextField';
+import { Password } from '../UI/Password';
+
 
 export const signInFormFields = [
   {

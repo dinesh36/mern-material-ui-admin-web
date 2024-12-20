@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
-import { AppIcon } from '../../icons/AppIcon';
+import { AppIcon } from '@mern/ui-shared';
 import { containerStyles, MainStyles } from './Header.style';
 import ProfileMenu from '../../shared/ProfileMenu/ProfileMenu';
 import { RootState } from '../../redux/store';

@@ -1,4 +1,4 @@
-import { TextField } from '@mern/ui-shared';
+import { TextField } from '../UI/TextField';
 
 export const forgotPasswordFormFields = [
   {
