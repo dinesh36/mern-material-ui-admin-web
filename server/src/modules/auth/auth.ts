@@ -110,13 +110,32 @@ class Auth {
     const user = await userModal.getUserWithEmailAndPassword({
       email: body.email,
       password: body.password,
-      isAdminUser: body.isAdminUser
+      isAdminUser: false,
     });
     if (!user) {
       throw new HttpException(
         HttpException.invalidCredentialsException(
           'Invalid user email or password'
         )
+      );
+    }
+
+    return this.getUserDetailsAndToken(user);
+  }
+
+  async adminLogin({ body, validator, HttpException }: ReqWrapperArgs) {
+    console.log('adminLogin');
+    this.validationUserLogin(body, validator, HttpException);
+    const user = await userModal.getUserWithEmailAndPassword({
+      email: body.email,
+      password: body.password,
+      isAdminUser: true,
+    });
+    if (!user) {
+      throw new HttpException(
+          HttpException.invalidCredentialsException(
+              'Invalid user email or password'
+          )
       );
     }
 
@@ -159,7 +178,6 @@ class Auth {
       ...body,
       profileImage: file.location,
       emailConfirmationToken,
-      isAdminUser: false,
     });
     // Setting the wait time does not works here, we need to set the await here for sending the email here
     await this.sendSignupEmail({

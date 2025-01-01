@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   profileImage: String,
   isUserEmailConfirmed: { type: Boolean, default: false },
   emailConfirmationToken: String,
-  isAdminUser: Boolean,
+  isAdminUser: { type: Boolean, default: false },
 });
 const userMongoModal = mongoose.model('user', userSchema);
 

@@ -10,9 +10,9 @@ import { Dispatch } from 'redux';
 export const signInService = async (signInBody: SignInBody) => {
   try {
     return await apiService({
-      url: '/auth/login',
+      url: '/auth/admin-login',
       method: 'POST',
-      data: { ...signInBody, isAdminUser: true },
+      data: signInBody,
       ignoreServerMessage: true,
       errorMessage: 'User is not authorized to login',
     });
