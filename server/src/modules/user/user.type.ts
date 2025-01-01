@@ -11,6 +11,7 @@ export type User = {
   resetPasswordExpires?: number;
   profileImage?: string;
   emailConfirmationToken?: string;
+  isAdminUser?: boolean;
 };
 
 export type UpdateUser = {

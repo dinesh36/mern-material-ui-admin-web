@@ -110,6 +110,7 @@ class Auth {
     const user = await userModal.getUserWithEmailAndPassword({
       email: body.email,
       password: body.password,
+      isAdminUser: body.isAdminUser
     });
     if (!user) {
       throw new HttpException(
@@ -158,6 +159,7 @@ class Auth {
       ...body,
       profileImage: file.location,
       emailConfirmationToken,
+      isAdminUser: false,
     });
     // Setting the wait time does not works here, we need to set the await here for sending the email here
     await this.sendSignupEmail({

@@ -12,7 +12,7 @@ export const signInService = async (signInBody: SignInBody) => {
     return await apiService({
       url: '/auth/login',
       method: 'POST',
-      data: signInBody,
+      data: { ...signInBody, isAdminUser: false },
       ignoreServerMessage: true,
       errorMessage: 'User is not authorized to login',
     });
