@@ -124,7 +124,6 @@ class Auth {
   }
 
   async adminLogin({ body, validator, HttpException }: ReqWrapperArgs) {
-    console.log('adminLogin');
     this.validationUserLogin(body, validator, HttpException);
     const user = await userModal.getUserWithEmailAndPassword({
       email: body.email,
