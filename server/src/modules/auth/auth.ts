@@ -110,7 +110,6 @@ class Auth {
     const user = await userModal.getUserWithEmailAndPassword({
       email: body.email,
       password: body.password,
-      isAdminUser: false,
     });
     if (!user) {
       throw new HttpException(

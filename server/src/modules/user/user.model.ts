@@ -20,11 +20,11 @@ class UserModal {
   async getUserWithEmailAndPassword({
     email,
     password,
-    isAdminUser,
+    isAdminUser = false,
   }: {
     email: string;
     password: string;
-    isAdminUser: boolean;
+    isAdminUser?: boolean;
   }) {
     return userMongoModal
       .findOne(
