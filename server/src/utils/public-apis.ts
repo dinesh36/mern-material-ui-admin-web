@@ -2,6 +2,7 @@ import express from 'express';
 
 export const publicApis = [
   { method: 'POST', path: '/api/auth/login' },
+  { method: 'POST', path: '/api/auth/admin-login' },
   { method: 'POST', path: '/api/auth/signup' },
   { method: 'POST', path: '/api/auth/send-reset-password-link' },
   { method: 'GET', path: '/api/auth/password-token-verify' },

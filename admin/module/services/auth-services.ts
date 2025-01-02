@@ -10,7 +10,7 @@ import { Dispatch } from 'redux';
 export const signInService = async (signInBody: SignInBody) => {
   try {
     return await apiService({
-      url: '/auth/login',
+      url: '/auth/admin-login',
       method: 'POST',
       data: signInBody,
       ignoreServerMessage: true,

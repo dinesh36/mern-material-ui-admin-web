@@ -122,6 +122,24 @@ class Auth {
     return this.getUserDetailsAndToken(user);
   }
 
+  async adminLogin({ body, validator, HttpException }: ReqWrapperArgs) {
+    this.validationUserLogin(body, validator, HttpException);
+    const user = await userModal.getUserWithEmailAndPassword({
+      email: body.email,
+      password: body.password,
+      isAdminUser: true,
+    });
+    if (!user) {
+      throw new HttpException(
+          HttpException.invalidCredentialsException(
+              'Invalid user email or password'
+          )
+      );
+    }
+
+    return this.getUserDetailsAndToken(user);
+  }
+
   async validateEmailExistence({
     email,
     HttpException,

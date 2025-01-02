@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
   profileImage: String,
   isUserEmailConfirmed: { type: Boolean, default: false },
   emailConfirmationToken: String,
+  isAdminUser: { type: Boolean, default: false },
 });
 const userMongoModal = mongoose.model('user', userSchema);
 
@@ -19,15 +20,18 @@ class UserModal {
   async getUserWithEmailAndPassword({
     email,
     password,
+    isAdminUser = false,
   }: {
     email: string;
     password: string;
+    isAdminUser?: boolean;
   }) {
     return userMongoModal
       .findOne(
         {
           email,
           password: encode(password),
+          isAdminUser,
         },
         { password: 0 }
       )
