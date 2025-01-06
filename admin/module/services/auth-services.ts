@@ -1,6 +1,5 @@
 import { apiService } from './api-service';
 import {
-  ChangePasswordBody,
   EditUserBody,
   SignInBody,
 } from '../../models/auth.type';
@@ -22,96 +21,15 @@ export const signInService = async (signInBody: SignInBody) => {
   }
 };
 
-export const signUpService = async (signUpBody: FormData) => {
+export const getUserDetails = async () => {
   try {
     return await apiService({
-      url: '/auth/signup',
-      method: 'POST',
-      data: signUpBody,
-      successMessage: 'User created successfully',
-      errorMessage: 'Failed to create an account',
+      url: '/auth/admin-get-details',
+      method: 'GET',
+      ignoreServerMessage: true,
+      errorMessage: 'User is not authorized to login',
     });
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const changePassword = async (
-  ChangePasswordBody: ChangePasswordBody
-) => {
-  try {
-    return await apiService({
-      url: '/auth/change-password',
-      method: 'POST',
-      data: ChangePasswordBody,
-      errorMessage: 'Failed to change password',
-      successMessage: 'Password updated successfully',
-    });
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const sendResetPasswordEmail = async (email: string) => {
-  try {
-    return await apiService({
-      url: '/auth/send-reset-password-link',
-      method: 'POST',
-      data: email,
-      errorMessage: 'Error in sending the reset password details',
-    });
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const getTokenVerifyAPI = async (resetPasswordToken: string) => {
-  try {
-    return await apiService({
-      url: `/auth/password-token-verify/${resetPasswordToken}`,
-      errorMessage:
-        'Reset password token not match or reset password token has expired',
-    });
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const resetPassword = async ({ password, resetPasswordToken }: any) => {
-  try {
-    return await apiService({
-      url: '/auth/reset-password',
-      method: 'POST',
-      data: { password, resetPasswordToken },
-      errorMessage: 'Failed to update password',
-      successMessage:
-        'Password is reset successfully, please try to login here.',
-    });
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const editUser = async (editUserBody: FormData) => {
-  try {
-    return await apiService({
-      url: '/auth/user',
-      method: 'PUT',
-      data: editUserBody,
-      successMessage: 'User updated successfully',
-      errorMessage: 'Failed to update an account',
-    });
-  } catch (e) {
-    throw e;
-  }
-};
-
-export const fetchUser = async () => {
-  try {
-    return await apiService({
-      url: '/auth/user',
-      errorMessage: 'Error in fetching the user details',
-    });
+    window.dispatchEvent(new Event('login'));
   } catch (e) {
     throw e;
   }
@@ -120,14 +38,6 @@ export const fetchUser = async () => {
 export const logout = () => {
   localStorage.clear();
   window.dispatchEvent(new Event('logout'));
-};
-
-export const getLocalUser = () => {
-  try {
-    return JSON.parse(localStorage.getItem('user') as string);
-  } catch {
-    return null;
-  }
 };
 
 export const updateUserDetails = (getUpdateData: EditUserBody) => {
@@ -173,23 +83,3 @@ export const checkLogin = async ({ dispatch }: { dispatch: Dispatch }) => {
   }
 };
 
-export const resendVerificationEmail = async () => {
-  try {
-    return await apiService({
-      url: '/auth/resend-verification-email',
-      successMessage: 'Verification email is sent successfully',
-    });
-  } catch {}
-};
-
-export const validateConfirmEmailToken = async (
-  emailConfirmationToken: string
-) => {
-  try {
-    return await apiService({
-      url: `/auth/validate-confirm-email-token/${emailConfirmationToken}`,
-      errorMessage: 'Error in validating the token',
-      ignoreServerMessage: true,
-    });
-  } catch {}
-};

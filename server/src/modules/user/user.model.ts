@@ -38,6 +38,10 @@ class UserModal {
       .lean();
   }
 
+  async getUsersDetails() {
+    return userMongoModal.find({ isAdminUser: false }, { password: 0 }).lean();
+  }
+
   async createUser(user: User) {
     return await userMongoModal.create({
       ...user,

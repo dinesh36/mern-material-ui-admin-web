@@ -4,9 +4,7 @@ import {
   defaultLineHeight,
 } from '../../layout/CommonStyles/StyleColorVariables';
 
-export const formCardStyle = (theme: {
-  palette: { app: { white: any }; border: { formCardBorder: any } };
-}) => ({
+export const formCardStyle = {
   width: {
     lg: '810px',
   },
@@ -16,10 +14,10 @@ export const formCardStyle = (theme: {
     xs: '44px 25px',
     md: '44px 30px',
   },
-  backgroundColor: theme.palette.app.white,
-  border: `0.72px solid ${theme.palette.border.formCardBorder}`,
+  backgroundColor: 'white',
+  border: '0.72px solid #C5C5C5',
   borderRadius: '17px',
-});
+};
 
 export const formCardContainer = {
   ...centerContainer,

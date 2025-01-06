@@ -6,6 +6,7 @@ class AuthRoutes {
   init(app: express.Application, reqWrapper: any) {
     app.post('/api/auth/login', reqWrapper(auth.login.bind(auth)));
     app.post('/api/auth/admin-login', reqWrapper(auth.adminLogin.bind(auth)));
+    app.get('/api/auth/admin-get-details', reqWrapper(auth.adminGetDetails.bind(auth)));
     app.post(
       '/api/auth/signup',
       upload.single('profileImage'),
