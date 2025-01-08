@@ -83,3 +83,28 @@ export const checkLogin = async ({ dispatch }: { dispatch: Dispatch }) => {
   }
 };
 
+export const editUser = async (editUserBody: FormData) => {
+  try {
+    return await apiService({
+      url: '/auth/user',
+      method: 'PUT',
+      data: editUserBody,
+      successMessage: 'User updated successfully',
+      errorMessage: 'Failed to update an account',
+    });
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const fetchUser = async () => {
+  try {
+    return await apiService({
+      url: '/auth/user',
+      errorMessage: 'Error in fetching the user details',
+    });
+  } catch (e) {
+    throw e;
+  }
+};
+
