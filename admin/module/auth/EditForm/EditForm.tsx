@@ -49,7 +49,7 @@ const EditForm: React.FC<EditFormProps> = ({
   const onSubmit = async (data: any) => {
     setLoading(true);
     try {
-      let formData = new FormData();
+      const formData = new FormData();
       Object.keys(data).forEach((key) => formData.append(key, data[key]));
       const updatedData = await editUser(formData);
       dispatch(setUser({ user: updatedData }));

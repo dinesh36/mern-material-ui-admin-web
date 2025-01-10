@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/module/redux/store";
 import {
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Avatar,
+  Box,
+  TextField,
+  MenuItem,
   Typography,
   IconButton,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { getUserDetails } from "@/module/services/auth-services";
 import { useRouter } from "next/router";
+import ColumnFilterDialog from "@/module/Dashboard-Table/ColumnFilterDialog";
+import TableHeader from "@/module/Dashboard-Table/TableHeader";
+import TableBodyComponent from "@/module/Dashboard-Table/TableBody";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 interface User {
   _id: string;
@@ -25,13 +28,22 @@ interface User {
 
 const UserTable: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  const [userDetails, setUserDetails] = React.useState<User[]>([]);
+  const [userDetails, setUserDetails] = useState<User[]>([]);
+  const [sortField, setSortField] = useState<"name" | "email">("name");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [columnVisibility, setColumnVisibility] = useState({
+    name: true,
+    email: true,
+    profileImage: true,
+  });
+  const [columnFilterOpen, setColumnFilterOpen] = useState(false);
+  const [filterType, setFilterType] = useState<"name" | "email">("name");
+  const [filterValue, setFilterValue] = useState("");
   const router = useRouter();
 
   const fetchUserDetails = async () => {
     try {
       const fetchedUsers = await getUserDetails();
-      console.log(fetchedUsers);
       setUserDetails(fetchedUsers);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -39,7 +51,6 @@ const UserTable: React.FC = () => {
   };
 
   const handleEditClick = (userDetail: User) => {
-    console.log("Editing user details:", userDetail);
     router.push({
       pathname: "/edit-profile",
       query: {
@@ -51,50 +62,119 @@ const UserTable: React.FC = () => {
     });
   };
 
-  React.useEffect(() => {
+  const handleSort = (field: "name" | "email") => {
+    const isAsc = sortField === field && sortDirection === "asc";
+    setSortField(field);
+    setSortDirection(isAsc ? "desc" : "asc");
+  };
+
+  useEffect(() => {
     fetchUserDetails();
   }, []);
+
+  const filteredAndSortedUsers = userDetails
+    .filter((user) => {
+      if (!filterValue) return true;
+      return user[filterType].toLowerCase().includes(filterValue.toLowerCase());
+    })
+    .sort((a, b) => {
+      if (sortField === "name") {
+        return sortDirection === "asc"
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      }
+      if (sortField === "email") {
+        return sortDirection === "asc"
+          ? a.email.localeCompare(b.email)
+          : b.email.localeCompare(a.email);
+      }
+      return 0;
+    });
 
   if (!user) return null;
 
   return (
-    <TableContainer>
-      <Table aria-label="user table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Profile Image</TableCell>
-            <TableCell>Username</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {userDetails.map((userDetail) => (
-            <TableRow key={userDetail._id}>
-              <TableCell>
-                <Avatar
-                  sx={{ width: 32, height: 32 }}
-                  src={userDetail.profileImage || "default_image_path.jpg"}
-                  alt={userDetail.name || "User Avatar"}
-                />
-              </TableCell>
-              <TableCell>
-                <Typography variant="body2">{userDetail.name}</Typography>
-              </TableCell>
-              <TableCell>{userDetail.email}</TableCell>
-              <TableCell>
-                <IconButton
-                  aria-label="edit"
-                  onClick={() => handleEditClick(userDetail)}
-                >
-                  <EditOutlinedIcon />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box
+      sx={{
+        padding: "20px",
+        paddingLeft: "100px",
+        paddingRight: "100px",
+        width: "100%",
+      }}
+    >
+      <Typography
+        sx={{
+          textAlign: "center",
+          fontWeight: 700,
+          marginBottom: "16px",
+          fontSize: "24px",
+        }}
+      >
+        User Details
+      </Typography>
+      <Box
+        sx={{
+          border: "0.5px groove lightgray",
+          padding: "20px",
+          paddingBottom: "0",
+        }}
+      >
+        <Box
+          display="flex"
+          gap={2}
+          alignItems="center"
+          marginBottom="16px"
+          width="100%"
+        >
+          <TextField
+            select
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value as "name" | "email")}
+            size="small"
+          >
+            <MenuItem value="name">Name</MenuItem>
+            <MenuItem value="email">Email</MenuItem>
+          </TextField>
+          <TextField
+            label="Search"
+            value={filterValue}
+            onChange={(e) => setFilterValue(e.target.value)}
+            size="small"
+            sx={{ flex: 1 }}
+          />
+          <IconButton onClick={() => setColumnFilterOpen(true)}>
+            <SettingsOutlinedIcon />
+          </IconButton>
+        </Box>
+
+        <ColumnFilterDialog
+          columnVisibility={columnVisibility}
+          setColumnVisibility={setColumnVisibility}
+          columnFilterOpen={columnFilterOpen}
+          setColumnFilterOpen={setColumnFilterOpen}
+        />
+
+        <TableContainer sx={{ overflowX: "auto" }}>
+          <Table aria-label="user table">
+            <TableHead>
+              <TableHeader
+                sortField={sortField}
+                sortDirection={sortDirection}
+                handleSort={handleSort}
+                setColumnFilterOpen={setColumnFilterOpen}
+              />
+            </TableHead>
+            <TableBody>
+              <TableBodyComponent
+                userDetails={filteredAndSortedUsers}
+                columnVisibility={columnVisibility}
+                handleEditClick={handleEditClick}
+              />
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Box>
   );
 };
 
