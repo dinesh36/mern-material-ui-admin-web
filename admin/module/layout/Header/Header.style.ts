@@ -1,19 +1,15 @@
 import { centerContainer } from '../CommonStyles/CenterContainer.style';
 
-export const MainStyles = (theme: {
-  palette: { container: { backgroundColor: any } };
-}) => ({
-  backgroundColor: theme.palette.container.backgroundColor,
+export const MainStyles = {
+  backgroundColor:'#021E35',
   display: 'flex',
   alignItems: 'center',
   padding: '0 28px',
   paddingRight: '83px',
   justifyContent: 'space-between',
-});
+};
 
-export const containerStyles = (theme: {
-  palette: { app: { white: any } };
-}) => ({
+export const containerStyles = {
   ...centerContainer,
   display: 'flex',
   alignItems: 'center',
@@ -22,7 +18,7 @@ export const containerStyles = (theme: {
   fontSize: '16px',
   fontFamily: 'DM Sans, sans-serif',
   fontWeight: '700',
-  color: theme.palette.app.white,
+  color: '#ffffff',
   gap: '10px',
   textDecoration: 'none',
-});
+};

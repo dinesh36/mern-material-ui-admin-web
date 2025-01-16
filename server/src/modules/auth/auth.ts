@@ -140,6 +140,19 @@ class Auth {
     return this.getUserDetailsAndToken(user);
   }
 
+  async adminGetDetails({ HttpException }: ReqWrapperArgs) {
+    const user = await userModal.getUsersDetails();
+    if (!user) {
+      throw new HttpException(
+          HttpException.invalidCredentialsException(
+              'Get users data'
+          )
+      );
+    }
+
+    return user;
+  }
+
   async validateEmailExistence({
     email,
     HttpException,
