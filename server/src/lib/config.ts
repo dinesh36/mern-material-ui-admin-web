@@ -12,3 +12,5 @@ export const awsFileUploadSecretKey = process.env.AWS_FILE_UPLOAD_SECRET_KEY;
 export const awsFileUploadBucket = process.env.FILE_UPLOAD_BUCKET;
 export const awsRegion = process.env.AWS_REGION;
 export const publicAssetsURL = process.env.PUBLIC_ASSETS_URL;
+export const isFileUploadInLocal = process.env.FILE_UPLOAD_IN_LOCAL === 'true';
+

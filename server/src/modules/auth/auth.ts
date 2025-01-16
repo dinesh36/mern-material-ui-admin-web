@@ -4,7 +4,7 @@ import { Validator } from '../../lib/validator';
 import { v4 as uuidv4 } from 'uuid';
 import { UpdateUser, User } from '../user/user.type';
 import { decode } from '../../utils/encoder';
-import { jwtSecret } from '../../lib/config';
+import {isFileUploadInLocal, jwtSecret} from '../../lib/config';
 import { emailSender } from '../../lib/email-sender';
 import {
   generateEmailContent,
@@ -161,10 +161,15 @@ class Auth {
     if (file) {
       this.validateFile(file, HttpException);
     }
+
+    const profileImageLocation = isFileUploadInLocal
+        ? `http://localhost:5001/mern-material-ui-admin-web/uploads/${file.filename}`
+        : file?.location;
+
     this.validateUserDetails(
       {
         ...body,
-        profileImage: file.location,
+        profileImage: profileImageLocation,
       },
       validator,
       HttpException
@@ -174,7 +179,7 @@ class Auth {
     const emailConfirmationToken = uuidv4();
     const user = await userModal.createUser({
       ...body,
-      profileImage: file.location,
+      profileImage: profileImageLocation,
       emailConfirmationToken,
     });
     // Setting the wait time does not works here, we need to set the await here for sending the email here
@@ -356,7 +361,12 @@ class Auth {
     validator,
     HttpException,
   }: ReqWrapperArgs) {
-    const profileImage = file ? file.location : body.profileImage;
+
+    const profileImageLocation = isFileUploadInLocal
+        ? `http://localhost:5001/mern-material-ui-admin-web/uploads/${file?.filename}`
+        : file?.location;
+    const profileImage = file ? profileImageLocation : body.profileImage;
+
     if (file) {
       this.validateFile(file, HttpException);
     }
