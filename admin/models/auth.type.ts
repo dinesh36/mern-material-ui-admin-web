@@ -15,6 +15,7 @@ export interface EditUserBody {
 }
 
 export interface User {
+  _id: string;
   id: string;
   name: string;
   email: string;
