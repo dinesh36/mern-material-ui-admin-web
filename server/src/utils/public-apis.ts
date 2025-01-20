@@ -9,6 +9,7 @@ export const publicApis = [
   { method: 'POST', path: '/api/auth/reset-password' },
   { method: 'POST', path: '/api/auth/refresh' },
   { method: 'GET', path: '/api/auth/validate-confirm-email-token' },
+  { method: 'GET', path: '/mern-material-ui-admin-web/uploads/*' },
 ];
 
 export const isPublicAPI = (req: express.Request) => {
