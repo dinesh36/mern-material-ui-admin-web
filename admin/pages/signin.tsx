@@ -7,7 +7,7 @@ const Signin = () => {
   return (
     <Box sx={{ margin: "-8px" }}>
       <Header />
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <SignInForm />
       </Box>
     </Box>

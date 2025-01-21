@@ -7,6 +7,8 @@ import ModeTwoToneIcon from "@mui/icons-material/ModeTwoTone";
 import { useRouter } from "next/router";
 import { User } from "@/models/auth.type";
 import { getUserDetails } from "@/module/services/auth-services";
+import { useTheme } from "@mui/system";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -18,6 +20,7 @@ const rowSelection: RowSelectionOptions = {
 const UserGrid = () => {
   const [userDetails, setUserDetails] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const theme = useTheme();
   const router = useRouter(); // Use Next.js useRouter
 
   // Fetch user details from the API
@@ -43,25 +46,22 @@ const UserGrid = () => {
       field: "profileImage",
       filter: false,
       headerName: "Profile Image",
-      cellRenderer: (props: any) => {
-        return (
-          <Avatar
-            style={{
-              height: 32,
-              width: 32,
-              marginTop: "5px",
-            }}
-            src={props.data.profileImage || "default_image_path.jpg"}
-            alt="User Avatar"
-          />
-        );
-      },
+      cellRenderer: (props: any) => (
+        <Avatar
+          style={{
+            height: 32,
+            width: 32,
+            marginTop: "5px",
+          }}
+          src={props.data.profileImage || "default_image_path.jpg"}
+          alt="User Avatar"
+        />
+      ),
     },
     {
       field: "name",
       headerName: "Username",
       flex: 1,
-      editable: true,
       cellEditor: "agSelectCellEditor",
     },
     {
@@ -83,12 +83,21 @@ const UserGrid = () => {
     },
   ];
 
-  const defaultColDef = useMemo(() => {
-    return {
+  const defaultColDef = useMemo(
+    () => ({
       filter: "agTextColumnFilter",
       floatingFilter: true,
-    };
-  }, []);
+    }),
+    [],
+  );
+
+  const gridTheme = useMemo(
+    () =>
+      theme.palette.mode === "dark"
+        ? "ag-theme-alpine-dark"
+        : "ag-theme-alpine",
+    [theme.palette.mode],
+  );
 
   const handleEditClick = (userDetail: User) => {
     console.log("Editing user details:", userDetail);
@@ -116,6 +125,7 @@ const UserGrid = () => {
         User Details
       </Typography>
       <Box
+        className={gridTheme}
         style={{
           height: 600,
           width: "100%",
