@@ -28,7 +28,6 @@ const UserGrid = () => {
     setLoading(true);
     try {
       const fetchedUsers = await getUserDetails();
-      console.log(fetchedUsers);
       setUserDetails(fetchedUsers);
       setLoading(false);
     } catch (error) {
@@ -100,7 +99,6 @@ const UserGrid = () => {
   );
 
   const handleEditClick = (userDetail: User) => {
-    console.log("Editing user details:", userDetail);
     router.push({
       pathname: "/edit-profile",
       query: {

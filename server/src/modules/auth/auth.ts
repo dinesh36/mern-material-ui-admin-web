@@ -383,6 +383,24 @@ class Auth {
     return userModal.fetchUser({ userId });
   }
 
+  async editAdminUserDetails({
+      body,
+      file,
+      validator,
+      HttpException,
+  }: ReqWrapperArgs) {
+    const { userId } = body;
+    const profileImage = file ? file.location : body.profileImage;
+    if (file) {
+      this.validateFile(file, HttpException);
+    }
+    const userDetails = {
+      ...body,
+      profileImage: profileImage,
+    };
+     this.validateUserDetails(userDetails, validator, HttpException);
+    await userModal.updateUser(<UpdateUser>{ ...userDetails });
+  }
   async fetchUserDetails({ userId }: ReqWrapperArgs) {
     return await userModal.fetchUser({
       userId,

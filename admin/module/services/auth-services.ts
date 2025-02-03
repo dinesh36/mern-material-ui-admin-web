@@ -83,7 +83,7 @@ export const checkLogin = async ({ dispatch }: { dispatch: Dispatch }) => {
 export const editUser = async (editUserBody: FormData) => {
   try {
     return await apiService({
-      url: "/auth/user",
+      url: "/auth/editAdminUser",
       method: "PUT",
       data: editUserBody,
       successMessage: "User updated successfully",

@@ -57,7 +57,7 @@ class UserModal {
   }: UpdateUser) {
     return userMongoModal.updateOne(
       { _id: userId },
-      { name, email, profileImage }
+      { name, email, profileImage },
     );
   }
 

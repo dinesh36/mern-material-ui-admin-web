@@ -16,6 +16,7 @@ interface EditFormProps {
 }
 
 const EditForm: React.FC<EditFormProps> = ({
+  userId,
   name,
   email,
   profileImage,
@@ -50,11 +51,11 @@ const EditForm: React.FC<EditFormProps> = ({
     try {
       const formData = new FormData();
       Object.keys(data).forEach((key) => formData.append(key, data[key]));
+      formData.append("userId", userId);
       const updatedData = await editUser(formData);
-      console.log('updatedData -->',updatedData);
       dispatch(setUser({ user: updatedData }));
       updateUserDetails(updatedData);
-      router.push("/");
+      router.push("/users");
     } catch {
     } finally {
       setLoading(false);

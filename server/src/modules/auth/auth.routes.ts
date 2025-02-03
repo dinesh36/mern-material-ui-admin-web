@@ -29,6 +29,11 @@ class AuthRoutes {
       reqWrapper(auth.resetPassword.bind(auth))
     );
     app.put(
+        '/api/auth/editAdminUser',
+        upload.single('profileImage'),
+        reqWrapper(auth.editAdminUserDetails.bind(auth))
+    );
+    app.put(
       '/api/auth/user',
       upload.single('profileImage'),
       reqWrapper(auth.editUserDetails.bind(auth))

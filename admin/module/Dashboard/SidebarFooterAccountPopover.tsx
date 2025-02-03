@@ -32,7 +32,7 @@ function SidebarFooterAccountPopover() {
   const user = useSelector((state: RootState) => state.auth.user);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { profileImage } = useSelector<RootState>(
-        (state: RootState) => state.auth.user
+        (state: RootState) => state.auth.user ?? {}
     ) as User;
   const router = useRouter();
 

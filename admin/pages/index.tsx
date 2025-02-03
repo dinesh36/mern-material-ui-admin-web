@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
             // eslint-disable-next-line
             if ((window.location as any).pathname === '/') {
                 // eslint-disable-next-line
-                return router.push('/home');
+                return router.push('/dashboard');
             }
             // eslint-disable-next-line
             router.push((window.location as any).pathname);
