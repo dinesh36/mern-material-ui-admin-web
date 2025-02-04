@@ -110,6 +110,22 @@ const UserGrid = () => {
     });
   };
 
+  useEffect(() => {
+    const agGridElement = document.querySelector(`.${gridTheme}`) as HTMLElement;
+    if (agGridElement) {
+      if (theme.palette.mode === "dark") {
+        agGridElement.style.setProperty('--ag-background-color', '#121212');
+        agGridElement.style.setProperty('--ag-header-background-color', '#121212');
+        agGridElement.style.setProperty('--ag-odd-row-background-color', 'transparent');
+      } else {
+        agGridElement.style.setProperty('--ag-background-color', '#ffffff');
+        agGridElement.style.setProperty('--ag-header-background-color', '#ffffff');
+        agGridElement.style.setProperty('--ag-odd-row-background-color', 'transparent');
+      }
+    }
+  }, [theme.palette.mode, gridTheme]);
+
+
   return (
     <Box>
       <Typography

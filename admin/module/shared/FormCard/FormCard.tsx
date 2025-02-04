@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { formCardContainer, formCardStyle } from './FormCard.style';
 
 interface FormContainerProps {
@@ -9,9 +9,11 @@ interface FormContainerProps {
 }
 
 const FormCard: React.FC<FormContainerProps> = ({ children, title }) => {
+  const theme = useTheme();
+
   return (
     <Box
-      sx={formCardContainer}
+      sx={formCardContainer(theme)}
       display="flex"
       alignItems="start"
       justifyContent="center"
@@ -28,7 +30,7 @@ const FormCard: React.FC<FormContainerProps> = ({ children, title }) => {
             {title}
           </Typography>
         )}
-        <Box sx={formCardStyle}>{children}</Box>
+        <Box sx={formCardStyle(theme)}>{children}</Box>
       </Box>
     </Box>
   );

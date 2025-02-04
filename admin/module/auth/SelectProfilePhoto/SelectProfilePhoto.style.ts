@@ -7,14 +7,20 @@ export const selectProfilePhotoStyle = (theme: { palette: { grey: any } }) => ({
 });
 
 export const selectProfileEditIconStyle = (theme: {
-  palette: { primary: { main: any } };
+  palette: { primary: { main: any }, mode: string };
 }) => ({
   position: 'absolute',
   bottom: 0,
   right: 0,
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: "#195CE5",
   borderRadius: '50%',
   '&:hover': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#195CE5',
   },
+  ...(theme.palette.mode === 'dark' && {
+    backgroundColor: '#195CE5',
+    '&:hover': {
+      backgroundColor: '#195CE5',
+    },
+  }),
 });
