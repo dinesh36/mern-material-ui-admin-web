@@ -1,19 +1,25 @@
-import React from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import EditForm from "@/module/auth/EditForm/EditForm";
+import { User } from "@/models/auth.type";
 
 const EditProfile = () => {
-  const router = useRouter();
-  const { userId, name, email, profileImage } = router.query;
+  const [userDetail, setUserDetail] = useState<User | null>(null);
 
-  return (
-    <EditForm
-      userId={userId as string}
-      name={name as string}
-      email={email as string}
-      profileImage={profileImage as string}
-    />
-  );
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("editUser");
+    if (storedUser) {
+      setUserDetail(JSON.parse(storedUser));
+    }
+  }, []);
+
+  return userDetail ? (
+      <EditForm
+          userId={userDetail._id}
+          name={userDetail.name}
+          email={userDetail.email}
+          profileImage={userDetail.profileImage}
+      />
+  ) : null;
 };
 
 export default EditProfile;

@@ -21,7 +21,7 @@ const UserGrid = () => {
   const [userDetails, setUserDetails] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const theme = useTheme();
-  const router = useRouter(); // Use Next.js useRouter
+  const router = useRouter();
 
   // Fetch user details from the API
   const fetchUserDetails = async () => {
@@ -99,15 +99,8 @@ const UserGrid = () => {
   );
 
   const handleEditClick = (userDetail: User) => {
-    router.push({
-      pathname: "/edit-profile",
-      query: {
-        userId: userDetail._id,
-        name: userDetail.name,
-        email: userDetail.email,
-        profileImage: userDetail.profileImage,
-      },
-    });
+    sessionStorage.setItem("editUser", JSON.stringify(userDetail));
+    router.push("/edit-profile");
   };
 
   useEffect(() => {
