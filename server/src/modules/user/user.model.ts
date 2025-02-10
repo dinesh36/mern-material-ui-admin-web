@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   isUserEmailConfirmed: { type: Boolean, default: false },
   emailConfirmationToken: String,
   isAdminUser: { type: Boolean, default: false },
+  isActivatedUser: { type: Boolean, default: false },
 });
 const userMongoModal = mongoose.model('user', userSchema);
 
@@ -114,6 +115,24 @@ class UserModal {
         _id: userId,
       })
       .lean();
+  }
+
+  async updateUserStatus(userId: string, isActivatedUser: boolean): Promise<any> {
+    try {
+      const updatedUser = await userMongoModal.findByIdAndUpdate(
+          userId,
+          { isActivatedUser },
+          { new: true }
+      ).lean();
+
+      if (!updatedUser) {
+        throw new Error('User not found');
+      }
+
+      return updatedUser;
+    } catch (error) {
+      throw new Error('Failed to update user status');
+    }
   }
 
   async updateUserPassword({

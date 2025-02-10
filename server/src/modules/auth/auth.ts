@@ -107,15 +107,23 @@ class Auth {
 
   async login({ body, validator, HttpException }: ReqWrapperArgs) {
     this.validationUserLogin(body, validator, HttpException);
+
     const user = await userModal.getUserWithEmailAndPassword({
       email: body.email,
       password: body.password,
     });
+
     if (!user) {
       throw new HttpException(
         HttpException.invalidCredentialsException(
           'Invalid user email or password'
         )
+      );
+    }
+
+    if (!user.isActivatedUser) {
+      throw new HttpException(
+          HttpException.unauthorizedException('User is not active')
       );
     }
 
@@ -464,6 +472,26 @@ class Auth {
 
     await userModal.confirmUserEmailConfirmationStatus(user._id);
     return { status: 'CONFIRMED' };
+  }
+
+  async updateUserStatus({ body, HttpException }: ReqWrapperArgs) {
+    const { userId, isActivatedUser } = body;
+
+    if (typeof isActivatedUser !== 'boolean') {
+      throw new HttpException(
+          HttpException.invalidDataException('User status (isActivatedUser) is required')
+      );
+    }
+
+    const updatedUser = await userModal.updateUserStatus(userId, isActivatedUser);
+
+    if (!updatedUser) {
+      throw new HttpException(
+          HttpException.notFoundException('User not found')
+      );
+    }
+
+    return { message: 'User status updated successfully' };
   }
 }
 

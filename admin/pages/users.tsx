@@ -2,11 +2,20 @@ import React, { useEffect, useMemo, useState } from "react";
 import type { ColDef, RowSelectionOptions } from "ag-grid-community";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { Avatar, Box, Typography, IconButton } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Typography,
+  IconButton,
+  Chip,
+} from "@mui/material";
 import ModeTwoToneIcon from "@mui/icons-material/ModeTwoTone";
 import { useRouter } from "next/router";
 import { User } from "@/models/auth.type";
-import { getUserDetails } from "@/module/services/auth-services";
+import {
+  getUserDetails,
+  updateUserStatus,
+} from "@/module/services/auth-services";
 import { useTheme } from "@mui/system";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
@@ -44,6 +53,7 @@ const UserGrid = () => {
     {
       field: "profileImage",
       filter: false,
+      sortable: false,
       headerName: "Profile Image",
       cellRenderer: (props: any) => (
         <Avatar
@@ -71,6 +81,7 @@ const UserGrid = () => {
     {
       field: "edit",
       filter: false,
+      sortable: false,
       headerName: "Actions",
       cellRenderer: (props: any) => {
         return (
@@ -80,6 +91,28 @@ const UserGrid = () => {
         );
       },
     },
+    {
+      field: "status",
+      filter: false,
+      sortable: false,
+      headerName: "Status",
+      flex: 1,
+      cellRenderer: (props: any) => {
+        const { isActivatedUser } = props.data;
+        return (
+            <Chip
+                label={isActivatedUser ? "Active" : "Inactive"}
+                color={isActivatedUser ? "success" : "error"}
+                style={{
+                  width: "100px",
+                  textAlign: "center",
+                  color: "white",
+                }}
+                onClick={() => handleToggleStatus(props.data)}
+            />
+        );
+      },
+    }
   ];
 
   const defaultColDef = useMemo(
@@ -103,6 +136,19 @@ const UserGrid = () => {
     router.push("/edit-profile");
   };
 
+  const handleToggleStatus = async (userDetail: User) => {
+    try {
+      await updateUserStatus(
+          userDetail._id,
+          !userDetail.isActivatedUser
+      );
+      await fetchUserDetails();
+    } catch (error) {
+      console.error("Error updating user status:", error);
+    }
+  };
+
+
   useEffect(() => {
     const agGridElement = document.querySelector(`.${gridTheme}`) as HTMLElement;
     if (agGridElement) {
@@ -117,7 +163,6 @@ const UserGrid = () => {
       }
     }
   }, [theme.palette.mode, gridTheme]);
-
 
   return (
     <Box>

@@ -93,3 +93,18 @@ export const editUser = async (editUserBody: FormData) => {
     throw e;
   }
 };
+
+export const updateUserStatus = async (userId: string, isActivatedUser: boolean) => {
+  try {
+    const data = { userId, isActivatedUser };
+    return await apiService({
+      url: "/auth/update-user-status",
+      method: "PUT",
+      data,
+      successMessage: "User status updated successfully",
+      errorMessage: "Failed to update user status",
+    });
+  } catch (e) {
+    throw e;
+  }
+};

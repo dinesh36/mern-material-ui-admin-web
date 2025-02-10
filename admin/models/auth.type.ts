@@ -22,4 +22,5 @@ export interface User {
   profileImage: string;
   isUserEmailConfirmed: boolean;
   emailConfirmationToken?: string;
+  isActivatedUser: boolean;
 }

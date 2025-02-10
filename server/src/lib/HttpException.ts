@@ -38,6 +38,11 @@ export class HttpException extends Error {
     message: message || 'Duplicate data',
   });
 
+  static unauthorizedException= (message?: string)=> ({
+      statusCode: 401,
+      message: message || 'User is not active',
+  });
+
   static fileValidationError(message: string) {
     return new HttpException({
       statusCode: 400,

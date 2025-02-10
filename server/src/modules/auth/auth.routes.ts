@@ -49,6 +49,10 @@ class AuthRoutes {
       '/api/auth/validate-confirm-email-token/:emailConfirmationToken',
       reqWrapper(auth.validateConfirmEmailToken.bind(auth))
     );
+    app.put(
+        "/api/auth/update-user-status",
+        reqWrapper(auth.updateUserStatus.bind(auth))
+    );
   }
 }
 
